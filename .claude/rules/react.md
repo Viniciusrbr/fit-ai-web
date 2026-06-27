@@ -1,5 +1,6 @@
 ## Componentes
 
+- **TODOS** os componentes ficam em `src/components/`. Primitivos do shadcn/ui em `src/components/ui/` e componentes de uma feature agrupados em sua própria subpasta (ex.: `src/components/home/`). **NUNCA** crie pastas `_components` dentro de `src/app/`.
 - Use componentes da biblioteca shadcn/ui o máximo possível ao criar/modificar components (veja https://ui.shadcn.com/ para a lista de componentes disponíveis).
 - Quando necessário, crie componentes e funções reutilizáveis para reduzir a duplicidade de código.
 - **NUNCA** crie mais de um componente no mesmo arquivo. Cada componente deve ter seu próprio arquivo.

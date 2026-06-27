@@ -30,7 +30,7 @@ The `.claude/rules/` directory is the source of truth for how to write code here
 
 - **Next.js 16 App Router**, React 19, TypeScript. The **React Compiler** is enabled (`babel-plugin-react-compiler`) — do not add manual `useMemo`/`useCallback` for purposes the compiler already handles.
 - **Path alias**: `@/*` → `src/*`.
-- **Source layout**: route code in `src/app/`; route-local helpers/components live under `_`-prefixed folders (e.g. `src/app/_lib/`, `src/app/_components/`). Shared UI primitives in `src/components/ui/`. The `cn()` util is in `src/lib/utils.ts`.
+- **Source layout**: route code in `src/app/`; route-local helpers (non-component) live under `_`-prefixed folders (e.g. `src/app/_lib/`). **All components live in `src/components/`** — shadcn UI primitives in `src/components/ui/`, feature components grouped in their own subfolder (e.g. `src/components/home/`). Do **not** create `_components` folders inside `src/app/`. The `cn()` util is in `src/lib/utils.ts`.
 
 ### Data fetching (Orval + TanStack Query)
 
