@@ -54,7 +54,7 @@ export default function Auth() {
 
       <div className="flex-1" />
 
-      <div className="relative z-10 flex w-full flex-col items-center gap-15 rounded-t-[20px] bg-brand px-5 pt-12 pb-10">
+      <div className="relative z-10 flex w-full flex-col items-center gap-15 rounded-t-4xl bg-brand px-5 pt-12 pb-10">
         <div className="flex w-full flex-col items-center gap-6">
           <h1 className="w-full text-center font-heading text-[32px] font-semibold leading-[1.05] text-brand-foreground">
             O app que vai transformar a forma como você treina.
