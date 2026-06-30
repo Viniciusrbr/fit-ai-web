@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import {
   Calendar,
   ChartNoAxesColumn,
@@ -6,9 +7,28 @@ import {
   UserRound,
 } from "lucide-react";
 import Link from "next/link";
+import { getHomeData } from "@/app/_lib/api/fetch-generated";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export function BottomNavigation() {
+type BottomNavigationProps = {
+  activeItem?: "home" | "calendar";
+};
+
+export async function BottomNavigation({
+  activeItem = "home",
+}: BottomNavigationProps) {
+  const today = dayjs().format("YYYY-MM-DD");
+
+  const homeResponse = await getHomeData(today);
+  const todayWorkoutDay =
+    homeResponse.status === 200 ? homeResponse.data.todayWorkoutDay : undefined;
+
+  const calendarHref =
+    todayWorkoutDay && !todayWorkoutDay.isRest
+      ? `/workout-plans/${todayWorkoutDay.workoutPlanId}/days/${todayWorkoutDay.id}`
+      : "/";
+
   return (
     <nav className="fixed inset-x-0 bottom-0 z-10 mx-auto flex w-full max-w-md items-center justify-center gap-6 rounded-t-4xl border border-border bg-background px-6 py-4">
       <Button
@@ -19,16 +39,33 @@ export function BottomNavigation() {
         aria-label="Início"
       >
         <Link href="/">
-          <House className="size-6 text-foreground" />
+          <House
+            className={cn(
+              "size-6",
+              activeItem === "home"
+                ? "text-foreground"
+                : "text-muted-foreground",
+            )}
+          />
         </Link>
       </Button>
       <Button
+        asChild
         variant="ghost"
         size="icon"
         className="size-12"
         aria-label="Agenda"
       >
-        <Calendar className="size-6 text-muted-foreground" />
+        <Link href={calendarHref}>
+          <Calendar
+            className={cn(
+              "size-6",
+              activeItem === "calendar"
+                ? "text-foreground"
+                : "text-muted-foreground",
+            )}
+          />
+        </Link>
       </Button>
       <Button
         size="icon"

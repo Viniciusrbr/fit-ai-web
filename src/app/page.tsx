@@ -45,6 +45,7 @@ export default async function Home() {
             }
             exercisesCount={todayWorkoutDay.exercisesCount}
             coverImageUrl={todayWorkoutDay.coverImageUrl}
+            href={`/workout-plans/${todayWorkoutDay.workoutPlanId}/days/${todayWorkoutDay.id}`}
           />
         ) : (
           <div className="flex h-50 items-center justify-center rounded-xl border border-border px-6 text-center">
