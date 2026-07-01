@@ -35,7 +35,15 @@ export default async function Home() {
       </section>
 
       <section className="flex flex-col gap-3 p-5">
-        <HomeSectionHeader title="Treino de Hoje" actionLabel="Ver treinos" />
+        <HomeSectionHeader
+          title="Treino de Hoje"
+          actionLabel="Ver treinos"
+          actionHref={
+            homeData?.activeWorkoutPlanId
+              ? `/workout-plans/${homeData.activeWorkoutPlanId}`
+              : undefined
+          }
+        />
         {todayWorkoutDay && !todayWorkoutDay.isRest ? (
           <WorkoutDayCard
             name={todayWorkoutDay.name}
