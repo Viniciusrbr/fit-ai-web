@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type BottomNavigationProps = {
-  activeItem?: "home" | "calendar";
+  activeItem?: "home" | "calendar" | "stats";
 };
 
 export async function BottomNavigation({
@@ -75,12 +75,22 @@ export async function BottomNavigation({
         <Sparkles className="size-6 text-brand-foreground" />
       </Button>
       <Button
+        asChild
         variant="ghost"
         size="icon"
         className="size-12"
         aria-label="Estatísticas"
       >
-        <ChartNoAxesColumn className="size-6 text-muted-foreground" />
+        <Link href="/stats">
+          <ChartNoAxesColumn
+            className={cn(
+              "size-6",
+              activeItem === "stats"
+                ? "text-foreground"
+                : "text-muted-foreground",
+            )}
+          />
+        </Link>
       </Button>
       <Button
         variant="ghost"
