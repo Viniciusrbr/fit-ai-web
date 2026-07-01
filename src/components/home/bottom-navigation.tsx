@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 type BottomNavigationProps = {
-  activeItem?: "home" | "calendar" | "stats";
+  activeItem?: "home" | "calendar" | "stats" | "profile";
 };
 
 export async function BottomNavigation({
@@ -93,12 +93,22 @@ export async function BottomNavigation({
         </Link>
       </Button>
       <Button
+        asChild
         variant="ghost"
         size="icon"
         className="size-12"
         aria-label="Perfil"
       >
-        <UserRound className="size-6 text-muted-foreground" />
+        <Link href="/profile">
+          <UserRound
+            className={cn(
+              "size-6",
+              activeItem === "profile"
+                ? "text-foreground"
+                : "text-muted-foreground",
+            )}
+          />
+        </Link>
       </Button>
     </nav>
   );
