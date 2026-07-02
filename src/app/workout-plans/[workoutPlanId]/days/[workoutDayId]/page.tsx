@@ -1,5 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { getWorkoutDay } from "@/app/_lib/api/fetch-generated";
+import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { Button } from "@/components/ui/button";
 import { CompleteWorkoutButton } from "@/components/workout-day/complete-workout-button";
@@ -14,6 +15,8 @@ type WorkoutDayPageProps = {
 
 export default async function WorkoutDayPage({ params }: WorkoutDayPageProps) {
   const { workoutPlanId, workoutDayId } = await params;
+
+  await redirectIfNotOnboarded();
 
   const response = await getWorkoutDay(workoutPlanId, workoutDayId);
 

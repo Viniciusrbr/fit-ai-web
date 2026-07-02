@@ -4,6 +4,7 @@ import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { getStats } from "@/app/_lib/api/fetch-generated";
 import { authClient } from "@/app/_lib/auth-client";
+import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { ConsistencyHeatmap } from "@/components/stats/consistency-heatmap";
 import { StatCard } from "@/components/stats/stat-card";
@@ -31,6 +32,8 @@ export default async function StatsPage() {
   if (!session.data) {
     redirect("/auth");
   }
+
+  await redirectIfNotOnboarded();
 
   const today = dayjs();
   const from = today.startOf("month").subtract(2, "month").format("YYYY-MM-DD");

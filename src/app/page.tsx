@@ -7,6 +7,7 @@ import { HomeBanner } from "@/components/home/home-banner";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
 import { WorkoutDayCard } from "@/components/home/workout-day-card";
 import { getHomeData } from "./_lib/api/fetch-generated";
+import { redirectIfNotOnboarded } from "./_lib/require-onboarding";
 
 export default async function Home() {
   const today = dayjs().format("YYYY-MM-DD");
@@ -16,6 +17,8 @@ export default async function Home() {
       headers: await headers(),
     },
   });
+
+  await redirectIfNotOnboarded();
 
   const homeResponse = await getHomeData(today);
   const homeData = homeResponse.status === 200 ? homeResponse.data : null;

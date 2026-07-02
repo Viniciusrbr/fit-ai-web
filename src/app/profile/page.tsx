@@ -3,6 +3,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserTrainData } from "@/app/_lib/api/fetch-generated";
 import { authClient } from "@/app/_lib/auth-client";
+import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { LogoutButton } from "@/components/profile/logout-button";
 import { StatCard } from "@/components/stats/stat-card";
@@ -33,6 +34,8 @@ export default async function ProfilePage() {
   if (!session.data) {
     redirect("/auth");
   }
+
+  await redirectIfNotOnboarded();
 
   const response = await getUserTrainData();
 

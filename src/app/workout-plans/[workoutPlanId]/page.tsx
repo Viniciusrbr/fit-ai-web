@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { getWorkoutPlan } from "@/app/_lib/api/fetch-generated";
 import { authClient } from "@/app/_lib/auth-client";
+import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { WEEK_DAY_ORDER } from "@/app/_lib/week-days";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { WorkoutDayCard } from "@/components/home/workout-day-card";
@@ -26,6 +27,8 @@ export default async function WorkoutPlanPage({
   if (!session.data) {
     redirect("/auth");
   }
+
+  await redirectIfNotOnboarded();
 
   const response = await getWorkoutPlan(workoutPlanId);
 
