@@ -4,19 +4,22 @@ Front-end do **FIT.AI**, um aplicativo de fitness/treino que ajuda o usuário a 
 
 A aplicação é construída com **Next.js 16 (App Router)** e foi pensada para uma experiência **mobile-first** (todas as telas usam um container com largura máxima de `max-w-md`). Toda a interface está em **português do Brasil (pt-BR)**.
 
+> **Status:** ✅ **Projeto concluído e funcional.** Você pode acessá-lo em **[fit-ai.viniciusrbr.dev/auth](https://fit-ai.viniciusrbr.dev/auth)**. Agora que está no ar, o projeto segue em uma fase contínua de **melhorias** — refatorações, aprimoramentos de código e evolução da qualidade.
+
 > **Nota:** este repositório é o front-end. Ele depende de uma API separada (veja a seção [🔌 Back-end](#-back-end)).
 
 ---
 
-<!-- ## 🖼️ Preview
+## 🖼️ Preview
 
-- **Aplicação publicada:** não foi encontrado nenhum link de deploy (arquivos como `vercel.json` ou variáveis de deploy) no código.
-- **Imagens/GIFs:** o projeto já possui alguns assets de UI em [public/](public/) (banners e logo), mas **não** há capturas de tela das telas montadas. Recomenda-se adicionar screenshots ou GIFs das principais telas (Login, Home, Treino do Dia, Estatísticas, Perfil e Coach AI) e referenciá-los aqui, por exemplo:
+🔗 **Acesse o app:** **[fit-ai.viniciusrbr.dev/auth](https://fit-ai.viniciusrbr.dev/auth)**
 
-  ```md
-  ![Home](docs/screenshots/home.png)
-  ![Coach AI](docs/screenshots/coach-ai.png)
-  ``` -->
+| Login | Home | Evolução |
+| :---: | :---: | :---: |
+| ![Tela de login](./docs/screenshots/login.png) | ![Tela inicial](./docs/screenshots/home.png) | ![Tela de estatísticas e evolução](./docs/screenshots/evolucao.png) |
+| Login com Google | Saudação, consistência e treino do dia | Sequência, mapa de consistência e métricas |
+
+---
 
 ## ✨ Funcionalidades
 
@@ -222,6 +225,8 @@ O passo a passo definitivo está no repositório do back-end. De forma resumida,
 
 ```txt
 front-end/
+├── docs/
+│   └── screenshots/                # capturas de tela usadas no README
 ├── public/                         # assets estáticos (logo, banners, ícones)
 ├── src/
 │   ├── app/                        # rotas (App Router)
@@ -296,12 +301,13 @@ Comando auxiliar (não é um script do `package.json`, mas parte do fluxo):
 
 ---
 
-## 🔮 Possíveis melhorias
+## 🔮 Melhorias em andamento e próximos passos
+
+O projeto já está **concluído e no ar**, e agora passa por uma fase contínua de **refatorações e melhorias de código**. Entre os pontos mapeados:
 
 - **Testes automatizados** — adicionar testes unitários e de componente (ex.: Vitest + Testing Library) e testes E2E (ex.: Playwright), já que não há _test runner_ configurado.
 - **Habilitar os hooks do TanStack Query** — ativar o bloco `rc` do Orval para data fetching client-side com _cache_, revalidação e uso de `initialData` a partir dos Server Components.
-- **Página inicial padrão** — a rota `/` foi substituída pela Home, mas convém revisar/remover os assets _boilerplate_ do `create-next-app` em `public/` (ex.: `next.svg`, `vercel.svg`).
-- **Documentação visual** — incluir screenshots/GIFs das telas e, se aplicável, um link de deploy na seção de Preview.
+- **Limpeza de assets _boilerplate_** — revisar/remover os arquivos remanescentes do `create-next-app` em `public/` (ex.: `next.svg`, `vercel.svg`).
 - **Tratamento de erros e estados de carregamento** — padronizar `loading.tsx` / `error.tsx` por rota e _skeletons_ para melhorar a percepção de performance.
 - **Tema claro/escuro** — como `next-themes` já é dependência, expor um _toggle_ de tema para o usuário.
 - **CI/CD** — adicionar _pipeline_ (lint + build + testes) e configuração de deploy.
