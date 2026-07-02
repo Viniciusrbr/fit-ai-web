@@ -1,13 +1,8 @@
 import dayjs from "dayjs";
-import {
-  Calendar,
-  ChartNoAxesColumn,
-  House,
-  Sparkles,
-  UserRound,
-} from "lucide-react";
+import { Calendar, ChartNoAxesColumn, House, UserRound } from "lucide-react";
 import Link from "next/link";
 import { getHomeData } from "@/app/_lib/api/fetch-generated";
+import { OpenChatButton } from "@/components/chat/open-chat-button";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -67,13 +62,7 @@ export async function BottomNavigation({
           />
         </Link>
       </Button>
-      <Button
-        size="icon"
-        className="size-14 rounded-full bg-brand hover:bg-brand/90"
-        aria-label="Assistente de IA"
-      >
-        <Sparkles className="size-6 text-brand-foreground" />
-      </Button>
+      <OpenChatButton />
       <Button
         asChild
         variant="ghost"

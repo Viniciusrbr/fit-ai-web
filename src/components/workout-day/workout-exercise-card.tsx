@@ -1,5 +1,5 @@
-import { CircleQuestionMark, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Zap } from "lucide-react";
+import { ExerciseHelpButton } from "@/components/workout-day/exercise-help-button";
 
 type WorkoutExerciseCardProps = {
   name: string;
@@ -23,15 +23,7 @@ export function WorkoutExerciseCard({
     <div className="flex w-full flex-col gap-3 rounded-xl border border-border p-5">
       <div className="flex items-center justify-between">
         <p className="text-base font-semibold text-foreground">{name}</p>
-        <Button
-          type="button"
-          variant="ghost"
-          size="icon"
-          className="-mr-2 size-8"
-          aria-label="Ver detalhes do exercício"
-        >
-          <CircleQuestionMark className="size-5 text-muted-foreground" />
-        </Button>
+        <ExerciseHelpButton exerciseName={name} />
       </div>
       <div className="flex flex-wrap gap-1.5">
         <span className={chipClassName}>{setsLabel}</span>
