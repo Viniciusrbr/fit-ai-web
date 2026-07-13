@@ -11,7 +11,7 @@ export function StatsStreakBanner({ streak }: StatsStreakBannerProps) {
   const daysLabel = `${streak} ${streak === 1 ? "dia" : "dias"}`;
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-xl px-5 py-10">
+    <div className="relative flex w-full flex-col items-center justify-center gap-6 overflow-hidden rounded-xl px-5 py-10 lg:h-55">
       <Image
         src={
           hasStreak ? "/streak-banner-active.png" : "/streak-banner-empty.png"
@@ -19,7 +19,7 @@ export function StatsStreakBanner({ streak }: StatsStreakBannerProps) {
         alt=""
         fill
         priority
-        sizes="448px"
+        sizes="(min-width: 1024px) 100vw, 448px"
         className="object-cover"
       />
       <div className="relative flex flex-col items-center gap-3">

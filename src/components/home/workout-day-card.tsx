@@ -2,6 +2,7 @@ import { Calendar, Dumbbell, Timer } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { WEEK_DAY_PT_LABEL, type WeekDay } from "@/app/_lib/week-days";
+import { cn } from "@/lib/utils";
 
 type WorkoutDayCardProps = {
   name: string;
@@ -10,6 +11,7 @@ type WorkoutDayCardProps = {
   exercisesCount: number;
   coverImageUrl?: string;
   href?: string;
+  className?: string;
 };
 
 export function WorkoutDayCard({
@@ -19,6 +21,7 @@ export function WorkoutDayCard({
   exercisesCount,
   coverImageUrl,
   href = "#",
+  className,
 }: WorkoutDayCardProps) {
   const durationInMinutes = Math.round(estimatedDurationInSeconds / 60);
   const exercisesLabel = `${exercisesCount} ${
@@ -28,7 +31,10 @@ export function WorkoutDayCard({
   return (
     <Link
       href={href}
-      className="relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5"
+      className={cn(
+        "relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5",
+        className,
+      )}
     >
       {coverImageUrl ? (
         <Image

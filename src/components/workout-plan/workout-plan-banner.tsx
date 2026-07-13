@@ -7,13 +7,13 @@ type WorkoutPlanBannerProps = {
 
 export function WorkoutPlanBanner({ planName }: WorkoutPlanBannerProps) {
   return (
-    <header className="relative flex h-74 flex-col justify-between overflow-hidden rounded-b-4xl px-5 pt-5 pb-10">
+    <header className="relative flex h-74 flex-col justify-between overflow-hidden rounded-b-4xl px-5 pt-5 pb-10 lg:h-55 lg:rounded-4xl">
       <Image
         src="/workout-plan-banner.png"
         alt=""
         fill
         priority
-        sizes="448px"
+        sizes="(min-width: 1024px) 100vw, 448px"
         className="object-cover object-top"
       />
       <div

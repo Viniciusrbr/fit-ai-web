@@ -6,6 +6,7 @@ import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { WEEK_DAY_ORDER } from "@/app/_lib/week-days";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { WorkoutDayCard } from "@/components/home/workout-day-card";
+import { Sidebar } from "@/components/layout/sidebar";
 import { RestDayCard } from "@/components/workout-plan/rest-day-card";
 import { WorkoutPlanBanner } from "@/components/workout-plan/workout-plan-banner";
 
@@ -46,28 +47,38 @@ export default async function WorkoutPlanPage({
   );
 
   return (
-    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-28">
-      <WorkoutPlanBanner planName={workoutPlan.name} />
+    <div className="flex min-h-dvh bg-background">
+      <Sidebar activeItem="calendar" />
 
-      <section className="flex flex-col gap-3 p-5">
-        {workoutDays.map((workoutDay) =>
-          workoutDay.isRest ? (
-            <RestDayCard key={workoutDay.id} weekDay={workoutDay.weekDay} />
-          ) : (
-            <WorkoutDayCard
+      <main className="relative mx-auto flex w-full max-w-md flex-col pb-28 lg:mx-0 lg:max-w-none lg:flex-1 lg:gap-7 lg:p-12 lg:pb-12">
+        <WorkoutPlanBanner planName={workoutPlan.name} />
+
+        <section className="p-5 lg:columns-2 lg:gap-6 lg:p-0">
+          {workoutDays.map((workoutDay) => (
+            <div
               key={workoutDay.id}
-              name={workoutDay.name}
-              weekDay={workoutDay.weekDay}
-              estimatedDurationInSeconds={workoutDay.estimatedDurationInSeconds}
-              exercisesCount={workoutDay.exercisesCount}
-              coverImageUrl={workoutDay.coverImageUrl}
-              href={`/workout-plans/${workoutPlan.id}/days/${workoutDay.id}`}
-            />
-          ),
-        )}
-      </section>
+              className="mb-3 break-inside-avoid lg:mb-5"
+            >
+              {workoutDay.isRest ? (
+                <RestDayCard weekDay={workoutDay.weekDay} />
+              ) : (
+                <WorkoutDayCard
+                  name={workoutDay.name}
+                  weekDay={workoutDay.weekDay}
+                  estimatedDurationInSeconds={
+                    workoutDay.estimatedDurationInSeconds
+                  }
+                  exercisesCount={workoutDay.exercisesCount}
+                  coverImageUrl={workoutDay.coverImageUrl}
+                  href={`/workout-plans/${workoutPlan.id}/days/${workoutDay.id}`}
+                />
+              )}
+            </div>
+          ))}
+        </section>
 
-      <BottomNavigation activeItem="calendar" />
-    </main>
+        <BottomNavigation activeItem="calendar" />
+      </main>
+    </div>
   );
 }

@@ -5,6 +5,7 @@ import { getUserTrainData } from "@/app/_lib/api/fetch-generated";
 import { authClient } from "@/app/_lib/auth-client";
 import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
+import { Sidebar } from "@/components/layout/sidebar";
 import { LogoutButton } from "@/components/profile/logout-button";
 import { StatCard } from "@/components/stats/stat-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -48,56 +49,64 @@ export default async function ProfilePage() {
   const name = trainData?.userName ?? user.name;
 
   return (
-    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-28">
-      <header className="flex h-14 items-center px-5">
-        <p className="font-anton text-[22px] leading-[1.15] text-foreground uppercase">
-          Fit.ai
-        </p>
-      </header>
+    <div className="flex min-h-dvh bg-background">
+      <Sidebar activeItem="profile" />
 
-      <div className="flex flex-col items-center gap-5 p-5">
-        <div className="flex w-full items-center gap-3">
-          <Avatar className="size-13">
-            {user.image ? <AvatarImage src={user.image} alt={name} /> : null}
-            <AvatarFallback>{getInitials(name)}</AvatarFallback>
-          </Avatar>
-          <div className="flex flex-col gap-1.5">
-            <p className="font-heading text-lg leading-[1.05] font-semibold text-foreground">
-              {name}
-            </p>
-            <p className="text-sm leading-[1.15] text-foreground/70">
-              Plano Básico
-            </p>
+      <main className="relative mx-auto flex w-full max-w-md flex-col pb-28 lg:mx-0 lg:max-w-none lg:flex-1 lg:p-12 lg:pb-12">
+        <header className="flex h-14 items-center px-5 lg:hidden">
+          <p className="font-anton text-[22px] leading-[1.15] text-foreground uppercase">
+            Fit.ai
+          </p>
+        </header>
+
+        <div className="flex flex-col items-center gap-5 p-5 lg:max-w-[820px] lg:items-start lg:gap-6 lg:p-0">
+          <h1 className="hidden text-3xl font-semibold text-foreground lg:block">
+            Perfil
+          </h1>
+
+          <div className="flex w-full items-center gap-3">
+            <Avatar className="size-13">
+              {user.image ? <AvatarImage src={user.image} alt={name} /> : null}
+              <AvatarFallback>{getInitials(name)}</AvatarFallback>
+            </Avatar>
+            <div className="flex flex-col gap-1.5">
+              <p className="font-heading text-lg leading-[1.05] font-semibold text-foreground">
+                {name}
+              </p>
+              <p className="text-sm leading-[1.15] text-foreground/70">
+                Plano Básico
+              </p>
+            </div>
           </div>
+
+          <div className="grid w-full grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+            <StatCard
+              icon={WeightTilde}
+              value={trainData ? formatWeight(trainData.weightInGrams) : "–"}
+              label="KG"
+            />
+            <StatCard
+              icon={Ruler}
+              value={trainData ? String(trainData.heightInCentimeters) : "–"}
+              label="CM"
+            />
+            <StatCard
+              icon={BicepsFlexed}
+              value={trainData ? `${trainData.bodyFatPercentage}%` : "–"}
+              label="GC"
+            />
+            <StatCard
+              icon={User}
+              value={trainData ? String(trainData.age) : "–"}
+              label="ANOS"
+            />
+          </div>
+
+          <LogoutButton />
         </div>
 
-        <div className="grid w-full grid-cols-2 gap-3">
-          <StatCard
-            icon={WeightTilde}
-            value={trainData ? formatWeight(trainData.weightInGrams) : "–"}
-            label="KG"
-          />
-          <StatCard
-            icon={Ruler}
-            value={trainData ? String(trainData.heightInCentimeters) : "–"}
-            label="CM"
-          />
-          <StatCard
-            icon={BicepsFlexed}
-            value={trainData ? `${trainData.bodyFatPercentage}%` : "–"}
-            label="GC"
-          />
-          <StatCard
-            icon={User}
-            value={trainData ? String(trainData.age) : "–"}
-            label="ANOS"
-          />
-        </div>
-
-        <LogoutButton />
-      </div>
-
-      <BottomNavigation activeItem="profile" />
-    </main>
+        <BottomNavigation activeItem="profile" />
+      </main>
+    </div>
   );
 }

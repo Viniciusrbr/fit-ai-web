@@ -8,13 +8,13 @@ export function HomeBanner({ userName }: HomeBannerProps) {
   const firstName = userName?.trim().split(" ")[0];
 
   return (
-    <header className="relative flex h-74 flex-col justify-between overflow-hidden rounded-b-4xl px-5 pt-5 pb-10">
+    <header className="relative flex h-74 flex-col justify-between overflow-hidden rounded-b-4xl px-5 pt-5 pb-10 lg:h-60 lg:rounded-4xl lg:px-8 lg:pt-7 lg:pb-8">
       <Image
         src="/home-banner.jpg"
         alt=""
         fill
         priority
-        sizes="448px"
+        sizes="(min-width: 1024px) 100vw, 448px"
         className="object-cover object-top"
       />
       <div
