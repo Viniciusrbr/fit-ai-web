@@ -500,30 +500,30 @@ export type GetUserTrainData500 = {
   code: string;
 };
 
-export type PostAiBodyMessagesItemRole =
-  (typeof PostAiBodyMessagesItemRole)[keyof typeof PostAiBodyMessagesItemRole];
+export type ChatWithAiBodyMessagesItemRole =
+  (typeof ChatWithAiBodyMessagesItemRole)[keyof typeof ChatWithAiBodyMessagesItemRole];
 
-export const PostAiBodyMessagesItemRole = {
+export const ChatWithAiBodyMessagesItemRole = {
   system: "system",
   user: "user",
   assistant: "assistant",
 } as const;
 
-export type PostAiBodyMessagesItem = {
-  role: PostAiBodyMessagesItemRole;
+export type ChatWithAiBodyMessagesItem = {
+  role: ChatWithAiBodyMessagesItemRole;
   [key: string]: unknown;
 };
 
-export type PostAiBody = {
-  messages: PostAiBodyMessagesItem[];
+export type ChatWithAiBody = {
+  messages: ChatWithAiBodyMessagesItem[];
 };
 
-export type PostAi401 = {
+export type ChatWithAi401 = {
   error: string;
   code: string;
 };
 
-export type PostAi500 = {
+export type ChatWithAi500 = {
   error: string;
   code: string;
 };
@@ -1077,36 +1077,39 @@ export const getUserTrainData = async (
   });
 };
 
-export type postAiResponse401 = {
-  data: PostAi401;
+export type chatWithAiResponse401 = {
+  data: ChatWithAi401;
   status: 401;
 };
 
-export type postAiResponse500 = {
-  data: PostAi500;
+export type chatWithAiResponse500 = {
+  data: ChatWithAi500;
   status: 500;
 };
-export type postAiResponseError = (postAiResponse401 | postAiResponse500) & {
+export type chatWithAiResponseError = (
+  | chatWithAiResponse401
+  | chatWithAiResponse500
+) & {
   headers: Headers;
 };
 
-export type postAiResponse = postAiResponseError;
+export type chatWithAiResponse = chatWithAiResponseError;
 
-export const getPostAiUrl = () => {
-  return `/ai`;
+export const getChatWithAiUrl = () => {
+  return `/ai/`;
 };
 
 /**
- * @summary Chat with the AI personal trainer assistant
+ * @summary Chat with AI personal trainer
  */
-export const postAi = async (
-  postAiBody: PostAiBody,
+export const chatWithAi = async (
+  chatWithAiBody: ChatWithAiBody,
   options?: RequestInit,
-): Promise<postAiResponse> => {
-  return customFetch<postAiResponse>(getPostAiUrl(), {
+): Promise<chatWithAiResponse> => {
+  return customFetch<chatWithAiResponse>(getChatWithAiUrl(), {
     ...options,
     method: "POST",
     headers: { "Content-Type": "application/json", ...options?.headers },
-    body: JSON.stringify(postAiBody),
+    body: JSON.stringify(chatWithAiBody),
   });
 };

@@ -2,6 +2,7 @@ import { notFound, redirect } from "next/navigation";
 import { getWorkoutDay } from "@/app/_lib/api/fetch-generated";
 import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
+import { Sidebar } from "@/components/layout/sidebar";
 import { Button } from "@/components/ui/button";
 import { CompleteWorkoutButton } from "@/components/workout-day/complete-workout-button";
 import { StartWorkoutButton } from "@/components/workout-day/start-workout-button";
@@ -39,56 +40,64 @@ export default async function WorkoutDayPage({ params }: WorkoutDayPageProps) {
   );
 
   return (
-    <main className="relative mx-auto flex min-h-dvh w-full max-w-md flex-col bg-background pb-28">
-      <div className="flex flex-col gap-5 p-5">
-        <WorkoutDayTopbar title="Treino de Hoje" />
+    <div className="flex min-h-dvh bg-background">
+      <Sidebar activeItem="calendar" />
 
-        <WorkoutDayHero
-          name={workoutDay.name}
-          weekDay={workoutDay.weekDay}
-          estimatedDurationInSeconds={workoutDay.estimatedDurationInSeconds}
-          exercisesCount={exercises.length}
-          coverImageUrl={workoutDay.coverImageUrl}
-          action={
-            completedSession ? (
-              <Button
-                type="button"
-                variant="ghost"
-                className="h-auto rounded-full px-4 py-2 text-sm font-semibold text-background hover:bg-background/10 hover:text-background"
+      <main className="relative mx-auto flex w-full max-w-md flex-col pb-28 lg:mx-0 lg:max-w-none lg:flex-1 lg:px-12 lg:py-10 lg:pb-10">
+        <div className="flex flex-col gap-5 p-5 lg:gap-6 lg:p-0">
+          <WorkoutDayTopbar title="Treino de Hoje" />
+
+          <WorkoutDayHero
+            name={workoutDay.name}
+            weekDay={workoutDay.weekDay}
+            estimatedDurationInSeconds={workoutDay.estimatedDurationInSeconds}
+            exercisesCount={exercises.length}
+            coverImageUrl={workoutDay.coverImageUrl}
+            action={
+              completedSession ? (
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="h-auto rounded-full px-4 py-2 text-sm font-semibold text-background hover:bg-background/10 hover:text-background"
+                >
+                  Concluído!
+                </Button>
+              ) : inProgressSession ? null : (
+                <StartWorkoutButton
+                  workoutPlanId={workoutPlanId}
+                  workoutDayId={workoutDayId}
+                />
+              )
+            }
+          />
+
+          <div className="lg:columns-2 lg:gap-5">
+            {exercises.map((exercise) => (
+              <div
+                key={exercise.id}
+                className="mb-3 break-inside-avoid lg:mb-4"
               >
-                Concluído!
-              </Button>
-            ) : inProgressSession ? null : (
-              <StartWorkoutButton
-                workoutPlanId={workoutPlanId}
-                workoutDayId={workoutDayId}
-              />
-            )
-          }
-        />
+                <WorkoutExerciseCard
+                  name={exercise.name}
+                  sets={exercise.sets}
+                  reps={exercise.reps}
+                  restTimeInSeconds={exercise.restTimeInSeconds}
+                />
+              </div>
+            ))}
+          </div>
 
-        <div className="flex flex-col gap-3">
-          {exercises.map((exercise) => (
-            <WorkoutExerciseCard
-              key={exercise.id}
-              name={exercise.name}
-              sets={exercise.sets}
-              reps={exercise.reps}
-              restTimeInSeconds={exercise.restTimeInSeconds}
+          {inProgressSession && !completedSession ? (
+            <CompleteWorkoutButton
+              workoutPlanId={workoutPlanId}
+              workoutDayId={workoutDayId}
+              workoutSessionId={inProgressSession.id}
             />
-          ))}
+          ) : null}
         </div>
 
-        {inProgressSession && !completedSession ? (
-          <CompleteWorkoutButton
-            workoutPlanId={workoutPlanId}
-            workoutDayId={workoutDayId}
-            workoutSessionId={inProgressSession.id}
-          />
-        ) : null}
-      </div>
-
-      <BottomNavigation activeItem="calendar" />
-    </main>
+        <BottomNavigation activeItem="calendar" />
+      </main>
+    </div>
   );
 }

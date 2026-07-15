@@ -26,13 +26,13 @@ export function WorkoutDayHero({
   }`;
 
   return (
-    <div className="relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5">
+    <div className="relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5 lg:h-70">
       {coverImageUrl ? (
         <Image
           src={coverImageUrl}
           alt={name}
           fill
-          sizes="448px"
+          sizes="(min-width: 1024px) 100vw, 448px"
           className="object-cover"
         />
       ) : null}

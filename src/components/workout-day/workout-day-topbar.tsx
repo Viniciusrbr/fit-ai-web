@@ -12,7 +12,7 @@ export function WorkoutDayTopbar({ title }: WorkoutDayTopbarProps) {
   const router = useRouter();
 
   return (
-    <div className="flex w-full items-center justify-between">
+    <div className="flex w-full items-center justify-between lg:w-auto lg:gap-3">
       <Button
         type="button"
         variant="ghost"

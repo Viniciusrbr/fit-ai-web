@@ -3,6 +3,7 @@ import { Anton, Geist, Geist_Mono, Inter_Tight } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Suspense } from "react";
 import { ChatWidget } from "@/components/chat/chat-widget";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
 
@@ -43,13 +44,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${interTight.variable} ${anton.variable} antialiased`}
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        <NuqsAdapter>
-          {children}
-          <Suspense>
-            <ChatWidget />
-          </Suspense>
-        </NuqsAdapter>
-        <Toaster />
+        <QueryProvider>
+          <NuqsAdapter>
+            {children}
+            <Suspense>
+              <ChatWidget />
+            </Suspense>
+          </NuqsAdapter>
+          <Toaster />
+        </QueryProvider>
       </body>
     </html>
   );
