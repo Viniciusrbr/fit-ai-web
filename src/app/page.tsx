@@ -37,6 +37,7 @@ export default async function Home() {
             <HomeSectionHeader
               title="Consistência"
               actionLabel="Ver histórico"
+              actionHref="/stats"
             />
             <ConsistencyCard
               referenceDate={today}
