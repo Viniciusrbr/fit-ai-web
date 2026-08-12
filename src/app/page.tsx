@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { ConsistencyCard } from "@/components/home/consistency-card";
@@ -18,6 +19,10 @@ export default async function Home() {
       headers: await headers(),
     },
   });
+
+  if (!session.data) {
+    redirect("/auth");
+  }
 
   await redirectIfNotOnboarded();
 

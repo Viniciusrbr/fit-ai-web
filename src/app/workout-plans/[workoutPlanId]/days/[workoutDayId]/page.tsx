@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { getWorkoutDay } from "@/app/_lib/api/fetch-generated";
 import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
@@ -9,6 +10,12 @@ import { StartWorkoutButton } from "@/components/workout-day/start-workout-butto
 import { WorkoutDayHero } from "@/components/workout-day/workout-day-hero";
 import { WorkoutDayTopbar } from "@/components/workout-day/workout-day-topbar";
 import { WorkoutExerciseCard } from "@/components/workout-day/workout-exercise-card";
+import { privateRouteRobots } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Treino",
+  robots: privateRouteRobots,
+};
 
 type WorkoutDayPageProps = {
   params: Promise<{ workoutPlanId: string; workoutDayId: string }>;

@@ -1,9 +1,16 @@
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { authClient } from "@/app/_lib/auth-client";
 import { Chat } from "@/components/chat/chat";
 import { Button } from "@/components/ui/button";
+import { privateRouteRobots } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Onboarding",
+  robots: privateRouteRobots,
+};
 
 export default async function OnboardingPage() {
   const session = await authClient.getSession({

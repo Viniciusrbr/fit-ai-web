@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { getWorkoutPlan } from "@/app/_lib/api/fetch-generated";
@@ -9,6 +10,12 @@ import { WorkoutDayCard } from "@/components/home/workout-day-card";
 import { Sidebar } from "@/components/layout/sidebar";
 import { RestDayCard } from "@/components/workout-plan/rest-day-card";
 import { WorkoutPlanBanner } from "@/components/workout-plan/workout-plan-banner";
+import { privateRouteRobots } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Plano de treino",
+  robots: privateRouteRobots,
+};
 
 type WorkoutPlanPageProps = {
   params: Promise<{ workoutPlanId: string }>;

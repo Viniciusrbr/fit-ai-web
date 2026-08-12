@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import { CircleCheck, CirclePercent, Hourglass } from "lucide-react";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { getStats } from "@/app/_lib/api/fetch-generated";
@@ -10,6 +11,12 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { ConsistencyHeatmap } from "@/components/stats/consistency-heatmap";
 import { StatCard } from "@/components/stats/stat-card";
 import { StatsStreakBanner } from "@/components/stats/stats-streak-banner";
+import { privateRouteRobots } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Estatísticas",
+  robots: privateRouteRobots,
+};
 
 const formatTotalTime = (totalTimeInSeconds: number) => {
   const totalMinutes = Math.round(totalTimeInSeconds / 60);

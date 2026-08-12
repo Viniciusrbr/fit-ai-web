@@ -1,4 +1,5 @@
 import { BicepsFlexed, Ruler, User, WeightTilde } from "lucide-react";
+import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { getUserTrainData } from "@/app/_lib/api/fetch-generated";
@@ -9,6 +10,12 @@ import { Sidebar } from "@/components/layout/sidebar";
 import { LogoutButton } from "@/components/profile/logout-button";
 import { StatCard } from "@/components/stats/stat-card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { privateRouteRobots } from "@/lib/site-config";
+
+export const metadata: Metadata = {
+  title: "Perfil",
+  robots: privateRouteRobots,
+};
 
 const formatWeight = (weightInGrams: number) => {
   const kilograms = weightInGrams / 1000;
@@ -59,7 +66,7 @@ export default async function ProfilePage() {
           </p>
         </header>
 
-        <div className="flex flex-col items-center gap-5 p-5 lg:max-w-[820px] lg:items-start lg:gap-6 lg:p-0">
+        <div className="flex flex-col items-center gap-5 p-5 lg:max-w-205 lg:items-start lg:gap-6 lg:p-0">
           <h1 className="hidden text-3xl font-semibold text-foreground lg:block">
             Perfil
           </h1>
