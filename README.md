@@ -134,8 +134,8 @@ O projeto segue a arquitetura do **App Router** do Next.js, priorizando **Server
 
 ```bash
 # clone o repositório
-git clone <url-deste-repositorio>
-cd front-end
+git clone https://github.com/Viniciusrbr/fit-ai-web.git
+cd fit-ai-web
 
 # instale as dependências
 pnpm install
