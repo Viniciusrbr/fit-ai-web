@@ -23,7 +23,7 @@ A aplicação é construída com **Next.js 16 (App Router)** e foi pensada para 
 
 ## ✨ Funcionalidades
 
-Funcionalidades identificadas diretamente no código:
+Funcionalidades:
 
 - **Login com Google** — autenticação social via BetterAuth ([src/app/auth/page.tsx](src/app/auth/page.tsx)). Usuários já logados são redirecionados para a Home.
 - **Fluxo de onboarding** — usuários que ainda não possuem dados de treino ou um plano ativo são redirecionados para `/onboarding`, onde conversam com o Coach AI para começar ([src/app/onboarding/page.tsx](src/app/onboarding/page.tsx), [src/app/_lib/require-onboarding.ts](src/app/_lib/require-onboarding.ts)).
@@ -207,8 +207,6 @@ O front-end consome uma **API REST própria do FIT.AI**, responsável por autent
 ### Como executar a API localmente
 
 O passo a passo definitivo está no repositório do back-end. De forma resumida, você deve subir a API na porta configurada e apontar o front-end para ela via `NEXT_PUBLIC_API_URL` (por padrão, `http://localhost:8081`).
-
-> Os detalhes exatos de instalação, banco de dados e variáveis de ambiente da API **não** puderam ser determinados a partir deste repositório de front-end — consulte o [README do back-end](https://github.com/Viniciusrbr/fit-ai-api).
 
 ### Variáveis de ambiente necessárias para conectar o front-end
 
