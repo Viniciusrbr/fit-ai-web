@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { ChatWidget } from "@/components/chat/chat-widget";
 import { QueryProvider } from "@/components/providers/query-provider";
 import { Toaster } from "@/components/ui/sonner";
-import { siteConfig } from "@/lib/site-config";
+import { buildOpenGraph, buildTwitter, siteConfig } from "@/lib/site-config";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -40,19 +40,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  openGraph: {
-    type: "website",
-    locale: siteConfig.locale,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    title: siteConfig.title,
-    description: siteConfig.description,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: siteConfig.title,
-    description: siteConfig.description,
-  },
+  openGraph: buildOpenGraph(),
+  twitter: buildTwitter(),
   robots: {
     index: true,
     follow: true,
