@@ -6,6 +6,7 @@ import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { ConsistencyCard } from "@/components/home/consistency-card";
 import { HomeBanner } from "@/components/home/home-banner";
 import { HomeSectionHeader } from "@/components/home/home-section-header";
+import { TodayWorkoutEmptyState } from "@/components/home/today-workout-empty-state";
 import { WorkoutDayCard } from "@/components/home/workout-day-card";
 import { Sidebar } from "@/components/layout/sidebar";
 import { getHomeData } from "./_lib/api/fetch-generated";
@@ -29,13 +30,20 @@ export default async function Home() {
   const homeResponse = await getHomeData(today);
   const homeData = homeResponse.status === 200 ? homeResponse.data : null;
   const todayWorkoutDay = homeData?.todayWorkoutDay ?? null;
+  const todayWorkoutHref =
+    todayWorkoutDay && !todayWorkoutDay.isRest
+      ? `/workout-plans/${todayWorkoutDay.workoutPlanId}/days/${todayWorkoutDay.id}`
+      : undefined;
 
   return (
     <div className="flex min-h-dvh bg-background">
       <Sidebar activeItem="home" />
 
       <main className="relative mx-auto flex w-full max-w-md flex-col pb-28 lg:mx-0 lg:max-w-none lg:flex-1 lg:gap-7 lg:px-12 lg:py-10 lg:pb-10">
-        <HomeBanner userName={session.data?.user.name} />
+        <HomeBanner
+          userName={session.data?.user.name}
+          todayWorkoutHref={todayWorkoutHref}
+        />
 
         <div className="flex flex-col lg:flex-row lg:items-start lg:gap-7">
           <section className="flex flex-col gap-3 px-5 pt-5 lg:flex-1 lg:px-0 lg:pt-0">
@@ -53,7 +61,7 @@ export default async function Home() {
 
           <section className="flex flex-col gap-3 p-5 lg:flex-1 lg:p-0">
             <HomeSectionHeader
-              title="Treino de Hoje"
+              title="Treino de hoje"
               actionLabel="Ver treinos"
               actionHref={
                 homeData?.activeWorkoutPlanId
@@ -61,7 +69,7 @@ export default async function Home() {
                   : undefined
               }
             />
-            {todayWorkoutDay && !todayWorkoutDay.isRest ? (
+            {todayWorkoutDay && todayWorkoutHref ? (
               <WorkoutDayCard
                 name={todayWorkoutDay.name}
                 weekDay={todayWorkoutDay.weekDay}
@@ -70,15 +78,13 @@ export default async function Home() {
                 }
                 exercisesCount={todayWorkoutDay.exercisesCount}
                 coverImageUrl={todayWorkoutDay.coverImageUrl}
-                href={`/workout-plans/${todayWorkoutDay.workoutPlanId}/days/${todayWorkoutDay.id}`}
+                href={todayWorkoutHref}
                 className="lg:h-60"
               />
             ) : (
-              <div className="flex h-50 items-center justify-center rounded-xl border border-border px-6 text-center lg:h-60">
-                <p className="text-sm text-muted-foreground">
-                  Nenhum treino para hoje. Aproveite o descanso! 💪
-                </p>
-              </div>
+              <TodayWorkoutEmptyState
+                isRestDay={Boolean(todayWorkoutDay?.isRest)}
+              />
             )}
           </section>
         </div>

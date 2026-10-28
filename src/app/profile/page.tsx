@@ -67,7 +67,7 @@ export default async function ProfilePage() {
         </header>
 
         <div className="flex flex-col items-center gap-5 p-5 lg:max-w-205 lg:items-start lg:gap-6 lg:p-0">
-          <h1 className="hidden text-3xl font-semibold text-foreground lg:block">
+          <h1 className="hidden font-heading text-3xl font-semibold tracking-tight text-foreground lg:block">
             Perfil
           </h1>
 
@@ -80,7 +80,7 @@ export default async function ProfilePage() {
               <p className="font-heading text-lg leading-[1.05] font-semibold text-foreground">
                 {name}
               </p>
-              <p className="text-sm leading-[1.15] text-foreground/70">
+              <p className="text-sm leading-[1.15] text-muted-foreground">
                 Plano Básico
               </p>
             </div>

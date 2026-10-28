@@ -4,12 +4,12 @@ import { getWorkoutDay } from "@/app/_lib/api/fetch-generated";
 import { redirectIfNotOnboarded } from "@/app/_lib/require-onboarding";
 import { BottomNavigation } from "@/components/home/bottom-navigation";
 import { Sidebar } from "@/components/layout/sidebar";
-import { Button } from "@/components/ui/button";
 import { CompleteWorkoutButton } from "@/components/workout-day/complete-workout-button";
 import { StartWorkoutButton } from "@/components/workout-day/start-workout-button";
 import { WorkoutDayHero } from "@/components/workout-day/workout-day-hero";
 import { WorkoutDayTopbar } from "@/components/workout-day/workout-day-topbar";
 import { WorkoutExerciseCard } from "@/components/workout-day/workout-exercise-card";
+import { WorkoutStatusBadge } from "@/components/workout-day/workout-status-badge";
 import { privateRouteRobots } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -52,7 +52,7 @@ export default async function WorkoutDayPage({ params }: WorkoutDayPageProps) {
 
       <main className="relative mx-auto flex w-full max-w-md flex-col pb-28 lg:mx-0 lg:max-w-none lg:flex-1 lg:px-12 lg:py-10 lg:pb-10">
         <div className="flex flex-col gap-5 p-5 lg:gap-6 lg:p-0">
-          <WorkoutDayTopbar title="Treino de Hoje" />
+          <WorkoutDayTopbar title="Treino do dia" />
 
           <WorkoutDayHero
             name={workoutDay.name}
@@ -62,14 +62,10 @@ export default async function WorkoutDayPage({ params }: WorkoutDayPageProps) {
             coverImageUrl={workoutDay.coverImageUrl}
             action={
               completedSession ? (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  className="h-auto rounded-full px-4 py-2 text-sm font-semibold text-background hover:bg-background/10 hover:text-background"
-                >
-                  Concluído!
-                </Button>
-              ) : inProgressSession ? null : (
+                <WorkoutStatusBadge status="completed" />
+              ) : inProgressSession ? (
+                <WorkoutStatusBadge status="in-progress" />
+              ) : (
                 <StartWorkoutButton
                   workoutPlanId={workoutPlanId}
                   workoutDayId={workoutDayId}
@@ -96,6 +92,7 @@ export default async function WorkoutDayPage({ params }: WorkoutDayPageProps) {
 
           {inProgressSession && !completedSession ? (
             <CompleteWorkoutButton
+              className="sticky bottom-28 lg:bottom-6"
               workoutPlanId={workoutPlanId}
               workoutDayId={workoutDayId}
               workoutSessionId={inProgressSession.id}

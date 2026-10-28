@@ -11,9 +11,15 @@ import {
   useState,
 } from "react";
 import { Streamdown } from "streamdown";
+import { ChatEmptyState } from "@/components/chat/chat-empty-state";
+import { ChatTypingIndicator } from "@/components/chat/chat-typing-indicator";
 import { Button } from "@/components/ui/button";
 
-const SUGGESTED_MESSAGES = ["Monte meu plano de treino"];
+const SUGGESTED_MESSAGES = [
+  "Monte meu plano de treino",
+  "Como fazer agachamento sem dor no joelho?",
+  "Quanto descansar entre as séries?",
+];
 
 const getMessageText = (parts: { type: string; text?: string }[]) =>
   parts.map((part) => (part.type === "text" ? (part.text ?? "") : "")).join("");
@@ -37,6 +43,7 @@ export function Chat({
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const isBusy = status === "submitted" || status === "streaming";
+  const isWaitingForReply = status === "submitted";
 
   useEffect(() => {
     if (!initialMessage || initialSentRef.current) {
@@ -49,12 +56,15 @@ export function Chat({
   }, [initialMessage, sendMessage, onInitialMessageSent]);
 
   useEffect(() => {
-    if (messages.length === 0) {
+    if (messages.length === 0 && !isWaitingForReply) {
       return;
     }
 
-    scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight });
-  }, [messages.length]);
+    scrollRef.current?.scrollTo({
+      top: scrollRef.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages.length, isWaitingForReply]);
 
   const submitMessage = (text: string) => {
     const trimmed = text.trim();
@@ -83,8 +93,10 @@ export function Chat({
               Coach AI
             </p>
             <div className="flex items-center gap-1">
-              <span className="size-2 rounded-full bg-online" />
-              <span className="text-xs leading-[1.15] text-brand">Online</span>
+              <span className="size-2 rounded-full bg-online" aria-hidden />
+              <span className="text-xs leading-[1.15] text-muted-foreground">
+                Online
+              </span>
             </div>
           </div>
         </div>
@@ -95,6 +107,7 @@ export function Chat({
         ref={scrollRef}
         className="flex min-h-0 flex-1 flex-col overflow-y-auto pb-5"
       >
+        {messages.length === 0 && !initialMessage ? <ChatEmptyState /> : null}
         {messages.map((message) => {
           const text = getMessageText(message.parts);
 
@@ -119,6 +132,7 @@ export function Chat({
             </div>
           );
         })}
+        {isWaitingForReply ? <ChatTypingIndicator /> : null}
       </div>
 
       <div className="flex flex-col gap-3">
@@ -130,7 +144,7 @@ export function Chat({
                 type="button"
                 variant="ghost"
                 onClick={() => submitMessage(suggestion)}
-                className="h-auto shrink-0 rounded-full bg-brand-muted px-4 py-2 text-sm font-normal text-foreground hover:bg-brand-muted/80"
+                className="h-auto shrink-0 rounded-full bg-brand/8 px-4 py-2 text-sm font-normal text-foreground hover:bg-brand/15"
               >
                 {suggestion}
               </Button>
@@ -146,16 +160,17 @@ export function Chat({
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Digite sua mensagem"
-            className="min-w-0 flex-1 rounded-full bg-secondary px-4 py-3 text-sm text-foreground outline-none placeholder:text-muted-foreground"
+            aria-label="Mensagem para o Coach AI"
+            className="min-w-0 flex-1 rounded-full bg-secondary px-4 py-3 text-base text-foreground outline-none transition-shadow placeholder:text-muted-foreground focus-visible:ring-3 focus-visible:ring-ring/50 sm:text-sm"
           />
           <Button
             type="submit"
             size="icon"
             aria-label="Enviar mensagem"
             disabled={isBusy || !input.trim()}
-            className="size-10.5 shrink-0 rounded-full bg-brand hover:bg-brand/90"
+            className="size-10.5 shrink-0 rounded-full"
           >
-            <ArrowUp className="size-5 text-brand-foreground" />
+            <ArrowUp className="size-5" aria-hidden />
           </Button>
         </form>
       </div>

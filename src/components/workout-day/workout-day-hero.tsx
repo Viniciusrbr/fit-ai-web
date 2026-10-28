@@ -1,7 +1,8 @@
-import { Calendar, Dumbbell, Timer } from "lucide-react";
 import Image from "next/image";
 import type { ReactNode } from "react";
-import { WEEK_DAY_PT_LABEL, type WeekDay } from "@/app/_lib/week-days";
+import type { WeekDay } from "@/app/_lib/week-days";
+import { WeekDayBadge } from "@/components/workout-day/week-day-badge";
+import { WorkoutDayMeta } from "@/components/workout-day/workout-day-meta";
 
 type WorkoutDayHeroProps = {
   name: string;
@@ -20,59 +21,34 @@ export function WorkoutDayHero({
   coverImageUrl,
   action,
 }: WorkoutDayHeroProps) {
-  const durationInMinutes = Math.round(estimatedDurationInSeconds / 60);
-  const exercisesLabel = `${exercisesCount} ${
-    exercisesCount === 1 ? "exercício" : "exercícios"
-  }`;
-
   return (
-    <div className="relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5 lg:h-70">
+    <section className="relative flex h-50 flex-col justify-between overflow-hidden rounded-xl bg-foreground p-5 lg:h-70 lg:p-7">
       {coverImageUrl ? (
         <Image
           src={coverImageUrl}
-          alt={name}
+          alt=""
           fill
+          priority
           sizes="(min-width: 1024px) 100vw, 448px"
           className="object-cover"
         />
       ) : null}
-      <div
-        className="absolute inset-0"
-        style={{
-          backgroundImage:
-            "linear-gradient(to top, rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0) 60%)",
-        }}
-      />
-      <div className="relative flex items-center">
-        <div className="flex items-center gap-1 rounded-full bg-background/15 px-2.5 py-1.25 backdrop-blur-xs">
-          <Calendar className="size-3.5 text-background" />
-          <span className="text-xs font-semibold text-background uppercase">
-            {WEEK_DAY_PT_LABEL[weekDay]}
-          </span>
-        </div>
+      <div className="absolute inset-0 bg-linear-to-t from-foreground/70 to-transparent to-65%" />
+      <div className="relative">
+        <WeekDayBadge weekDay={weekDay} />
       </div>
-      <div className="relative flex items-end justify-between gap-2">
-        <div className="flex flex-col gap-2">
-          <p className="font-heading text-2xl leading-[1.05] font-semibold text-background">
+      <div className="relative flex items-end justify-between gap-3">
+        <div className="flex min-w-0 flex-col gap-2">
+          <h1 className="font-heading text-2xl leading-[1.05] font-semibold tracking-tight text-background lg:text-4xl">
             {name}
-          </p>
-          <div className="flex gap-2">
-            <div className="flex items-center gap-1">
-              <Timer className="size-3.5 text-background/70" />
-              <span className="text-xs text-background/70">
-                {durationInMinutes}min
-              </span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Dumbbell className="size-3.5 text-background/70" />
-              <span className="text-xs text-background/70">
-                {exercisesLabel}
-              </span>
-            </div>
-          </div>
+          </h1>
+          <WorkoutDayMeta
+            estimatedDurationInSeconds={estimatedDurationInSeconds}
+            exercisesCount={exercisesCount}
+          />
         </div>
         {action}
       </div>
-    </div>
+    </section>
   );
 }

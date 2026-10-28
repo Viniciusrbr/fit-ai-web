@@ -70,7 +70,7 @@ export default async function StatsPage() {
           </p>
         </header>
 
-        <h1 className="hidden px-5 text-3xl font-semibold text-foreground lg:block lg:px-0">
+        <h1 className="hidden px-5 font-heading text-3xl font-semibold tracking-tight text-foreground lg:block lg:px-0">
           Evolução
         </h1>
 
@@ -79,7 +79,7 @@ export default async function StatsPage() {
         </div>
 
         <section className="flex flex-col gap-3 p-5 lg:gap-6 lg:p-0">
-          <h2 className="font-heading text-lg leading-[1.4] font-semibold text-foreground">
+          <h2 className="font-heading text-lg leading-[1.4] font-semibold tracking-tight text-foreground">
             Consistência
           </h2>
 
@@ -94,7 +94,7 @@ export default async function StatsPage() {
             <StatCard
               icon={CircleCheck}
               value={String(stats.completedWorkoutsCount)}
-              label="Treinos Feitos"
+              label="Treinos feitos"
               className="flex-[1_1_calc(50%-0.375rem)] lg:flex-1"
             />
             <StatCard
@@ -106,7 +106,7 @@ export default async function StatsPage() {
             <StatCard
               icon={Hourglass}
               value={formatTotalTime(stats.totalTimeInSeconds)}
-              label="Tempo Total"
+              label="Tempo total"
               className="flex-[1_1_100%] lg:flex-1"
             />
           </div>

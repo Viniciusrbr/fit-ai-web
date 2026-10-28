@@ -1,4 +1,4 @@
-import { Zap } from "lucide-react";
+import { Timer } from "lucide-react";
 import { ExerciseHelpButton } from "@/components/workout-day/exercise-help-button";
 
 type WorkoutExerciseCardProps = {
@@ -9,7 +9,7 @@ type WorkoutExerciseCardProps = {
 };
 
 const chipClassName =
-  "flex items-center justify-center gap-1 rounded-full bg-muted px-2.5 py-1.25 text-xs font-semibold text-muted-foreground uppercase";
+  "flex items-center justify-center gap-1 rounded-full bg-muted px-2.5 py-1.25 text-xs font-semibold text-muted-foreground tabular-nums";
 
 export function WorkoutExerciseCard({
   name,
@@ -20,19 +20,20 @@ export function WorkoutExerciseCard({
   const setsLabel = `${sets} ${sets === 1 ? "série" : "séries"}`;
 
   return (
-    <div className="flex w-full flex-col gap-3 rounded-xl border border-border p-5">
-      <div className="flex items-center justify-between">
-        <p className="text-base font-semibold text-foreground">{name}</p>
+    <article className="flex w-full flex-col gap-3 rounded-xl border border-border p-5">
+      <div className="flex items-center justify-between gap-2">
+        <h2 className="text-base font-semibold text-foreground">{name}</h2>
         <ExerciseHelpButton exerciseName={name} />
       </div>
       <div className="flex flex-wrap gap-1.5">
         <span className={chipClassName}>{setsLabel}</span>
         <span className={chipClassName}>{reps} reps</span>
         <span className={chipClassName}>
-          <Zap className="size-3.5" />
+          <Timer className="size-3.5" aria-hidden />
+          <span className="sr-only">Descanso de</span>
           {restTimeInSeconds}s
         </span>
       </div>
-    </div>
+    </article>
   );
 }

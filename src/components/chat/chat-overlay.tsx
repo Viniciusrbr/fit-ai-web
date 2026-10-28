@@ -24,10 +24,15 @@ export function ChatOverlay() {
   }, [setChatState]);
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Coach AI"
+      className="fixed inset-0 z-50 animate-in fade-in-0 duration-200"
+    >
       <div className="absolute inset-0 bg-foreground/20 backdrop-blur-sm" />
       <div className="pointer-events-none absolute inset-0 mx-auto flex max-w-md flex-col px-4 pt-40 pb-4">
-        <div className="pointer-events-auto flex min-h-0 flex-1 flex-col overflow-hidden rounded-4xl bg-background">
+        <div className="pointer-events-auto flex min-h-0 flex-1 flex-col overflow-hidden rounded-4xl bg-background shadow-2xl shadow-foreground/20 motion-safe:animate-in motion-safe:slide-in-from-bottom-6 motion-safe:duration-300">
           <Chat
             initialMessage={chat_initial_message || undefined}
             onInitialMessageSent={() =>

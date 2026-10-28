@@ -1,5 +1,6 @@
 "use client";
 
+import dayjs from "dayjs";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -61,23 +62,23 @@ export default function Auth() {
           <Image src="/fit-ai-logo.svg" alt="FIT.AI" width={120} height={54} />
         </div>
 
-        <div className="flex w-full flex-col items-center gap-6 lg:gap-10">
-          <h1 className="w-full text-center font-heading text-[32px] font-semibold leading-[1.05] text-brand-foreground lg:text-[44px]">
+        <div className="flex w-full flex-col items-center gap-6 lg:items-start lg:gap-10">
+          <h1 className="w-full text-center font-heading text-[32px] font-semibold leading-[1.05] tracking-tight text-brand-foreground lg:text-left lg:text-5xl">
             O app que vai transformar a forma como você treina.
           </h1>
 
           <Button
             type="button"
             onClick={handleGoogleLogin}
-            className="h-9.5 gap-2 rounded-full bg-background px-6 text-sm font-semibold text-foreground hover:bg-background/90"
+            className="h-11 gap-2.5 rounded-full bg-background px-7 text-sm font-semibold text-foreground shadow-lg shadow-foreground/15 hover:bg-background/90 focus-visible:ring-background/60 motion-safe:hover:-translate-y-px lg:self-start"
           >
-            <Image src="/google.svg" alt="" width={16} height={16} />
-            Fazer login com Google
+            <Image src="/google.svg" alt="" width={18} height={18} />
+            Entrar com Google
           </Button>
         </div>
 
         <p className="text-center text-xs leading-[1.4] text-brand-foreground/70 lg:text-[13px]">
-          ©2026 Copyright FIT.AI. Todos os direitos reservados
+          © {dayjs().year()} FIT.AI. Todos os direitos reservados.
         </p>
       </div>
     </div>

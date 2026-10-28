@@ -34,9 +34,9 @@ export function StartWorkoutButton({
       type="button"
       disabled={isPending}
       onClick={handleClick}
-      className="h-auto rounded-full bg-brand px-4 py-2 text-sm font-semibold text-brand-foreground hover:bg-brand/90"
+      className="h-auto shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold motion-safe:hover:-translate-y-px"
     >
-      Iniciar Treino
+      {isPending ? "Iniciando..." : "Iniciar treino"}
     </Button>
   );
 }

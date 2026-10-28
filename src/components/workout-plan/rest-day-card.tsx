@@ -1,5 +1,6 @@
-import { Calendar, Zap } from "lucide-react";
-import { WEEK_DAY_PT_LABEL, type WeekDay } from "@/app/_lib/week-days";
+import { BatteryCharging } from "lucide-react";
+import type { WeekDay } from "@/app/_lib/week-days";
+import { WeekDayBadge } from "@/components/workout-day/week-day-badge";
 
 type RestDayCardProps = {
   weekDay: WeekDay;
@@ -8,17 +9,10 @@ type RestDayCardProps = {
 export function RestDayCard({ weekDay }: RestDayCardProps) {
   return (
     <div className="flex h-27.5 w-full flex-col justify-between rounded-xl bg-muted p-5">
-      <div className="flex items-center">
-        <div className="flex items-center gap-1 rounded-full bg-foreground/8 px-2.5 py-1.25 backdrop-blur-xs">
-          <Calendar className="size-3.5 text-foreground" />
-          <span className="text-xs font-semibold text-foreground uppercase">
-            {WEEK_DAY_PT_LABEL[weekDay]}
-          </span>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-        <Zap className="size-5 text-foreground" />
-        <p className="font-heading text-2xl leading-[1.05] font-semibold text-foreground">
+      <WeekDayBadge weekDay={weekDay} tone="muted" />
+      <div className="flex items-center gap-2 text-foreground">
+        <BatteryCharging className="size-5" aria-hidden />
+        <p className="font-heading text-2xl leading-[1.05] font-semibold tracking-tight">
           Descanso
         </p>
       </div>

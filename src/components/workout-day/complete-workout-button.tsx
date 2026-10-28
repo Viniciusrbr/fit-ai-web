@@ -1,20 +1,24 @@
 "use client";
 
+import { CircleCheck } from "lucide-react";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { completeWorkoutSessionAction } from "@/app/workout-plans/[workoutPlanId]/days/[workoutDayId]/_lib/actions";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 type CompleteWorkoutButtonProps = {
   workoutPlanId: string;
   workoutDayId: string;
   workoutSessionId: string;
+  className?: string;
 };
 
 export function CompleteWorkoutButton({
   workoutPlanId,
   workoutDayId,
   workoutSessionId,
+  className,
 }: CompleteWorkoutButtonProps) {
   const [isPending, startTransition] = useTransition();
 
@@ -31,19 +35,22 @@ export function CompleteWorkoutButton({
         return;
       }
 
-      toast.success("Treino concluído! 💪");
+      toast.success("Treino concluído. Mais um dia na sequência.");
     });
   };
 
   return (
     <Button
       type="button"
-      variant="outline"
       disabled={isPending}
       onClick={handleClick}
-      className="h-auto w-full rounded-full py-3 text-sm font-semibold text-foreground"
+      className={cn(
+        "h-auto w-full gap-2 rounded-full py-3.5 text-sm font-semibold shadow-lg shadow-brand/25",
+        className,
+      )}
     >
-      Marcar como concluído
+      <CircleCheck className="size-4" aria-hidden />
+      {isPending ? "Salvando..." : "Marcar como concluído"}
     </Button>
   );
 }

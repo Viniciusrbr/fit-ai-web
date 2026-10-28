@@ -21,9 +21,11 @@ export async function Sidebar({ activeItem = "home" }: SidebarProps) {
       : "/";
 
   return (
-    <aside className="sticky top-0 hidden h-dvh w-65 shrink-0 flex-col gap-2 border-r border-border bg-background px-5 py-8 lg:flex">
-      <p className="font-anton text-[26px] text-foreground">FIT.AI</p>
-      <div className="h-6" />
+    <aside
+      aria-label="Navegação principal"
+      className="sticky top-0 hidden h-dvh w-65 shrink-0 flex-col gap-2 border-r border-border bg-background px-5 py-8 lg:flex"
+    >
+      <p className="mb-6 font-anton text-[26px] text-foreground">FIT.AI</p>
       <SidebarNavItem
         icon={<House className="size-6" />}
         label="Início"

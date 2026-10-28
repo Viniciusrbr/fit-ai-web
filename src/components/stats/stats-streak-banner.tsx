@@ -34,11 +34,11 @@ export function StatsStreakBanner({ streak }: StatsStreakBannerProps) {
           />
         </div>
         <div className="flex flex-col items-center gap-1 text-background">
-          <p className="text-center font-heading text-5xl leading-[0.95] font-semibold">
+          <p className="text-center font-heading text-5xl leading-[0.95] font-semibold tracking-tight tabular-nums">
             {daysLabel}
           </p>
-          <p className="text-base leading-[1.15] text-background/60">
-            Sequência Atual
+          <p className="text-base leading-[1.15] text-background/70">
+            Sequência atual
           </p>
         </div>
       </div>

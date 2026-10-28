@@ -14,20 +14,18 @@ export function HomeSectionHeader({
 }: HomeSectionHeaderProps) {
   return (
     <div className="flex w-full items-center justify-between">
-      <h2 className="font-heading text-lg leading-[1.4] font-semibold text-foreground">
+      <h2 className="font-heading text-lg leading-[1.4] font-semibold tracking-tight text-foreground">
         {title}
       </h2>
-      <Button
-        asChild={Boolean(actionHref)}
-        variant="link"
-        className="h-auto p-0 text-xs font-normal text-brand hover:text-brand"
-      >
-        {actionHref ? (
+      {actionHref ? (
+        <Button
+          asChild
+          variant="link"
+          className="h-auto p-0 text-xs font-medium"
+        >
           <Link href={actionHref}>{actionLabel}</Link>
-        ) : (
-          actionLabel
-        )}
-      </Button>
+        </Button>
+      ) : null}
     </div>
   );
 }

@@ -7,8 +7,8 @@ export function sidebarNavItemClassName(isActive?: boolean) {
   return cn(
     "h-auto w-full justify-start gap-3 rounded-[10px] px-3.5 py-3 text-[15px] font-medium",
     isActive
-      ? "bg-brand/10 text-brand hover:bg-brand/10 hover:text-brand"
-      : "text-foreground",
+      ? "bg-brand/10 text-brand hover:bg-brand/15 hover:text-brand"
+      : "text-muted-foreground hover:text-foreground",
   );
 }
 
@@ -31,7 +31,7 @@ export function SidebarNavItem({
       variant="ghost"
       className={sidebarNavItemClassName(isActive)}
     >
-      <Link href={href}>
+      <Link href={href} aria-current={isActive ? "page" : undefined}>
         {icon}
         {label}
       </Link>

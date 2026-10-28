@@ -16,16 +16,16 @@ export function ExerciseHelpButton({ exerciseName }: ExerciseHelpButtonProps) {
       type="button"
       variant="ghost"
       size="icon"
-      aria-label="Ver detalhes do exercício"
+      aria-label={`Perguntar ao Coach AI como executar ${exerciseName}`}
       onClick={() =>
         setChatState({
           chat_open: true,
           chat_initial_message: `Como executar o exercício ${exerciseName} corretamente?`,
         })
       }
-      className="-mr-2 size-8"
+      className="-mr-2 size-10 text-muted-foreground hover:text-brand"
     >
-      <CircleQuestionMark className="size-5 text-muted-foreground" />
+      <CircleQuestionMark className="size-5" aria-hidden />
     </Button>
   );
 }
